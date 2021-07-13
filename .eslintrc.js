@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    node: true,
     'jest/globals': true,
     'cypress/globals': true,
   },
@@ -13,9 +14,10 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', 'jest', 'cypress', 'prettier'],
+  plugins: ['react', 'jest', 'cypress'],
   rules: {
     indent: ['error', 2],
+    'react/prop-types': 0,
   },
   settings: {
     react: {
