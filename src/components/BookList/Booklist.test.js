@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 
-import BookList from './components/BookList'
+import BookList from './BookList'
 
 describe('BookList', () => {
   it('loading', () => {
