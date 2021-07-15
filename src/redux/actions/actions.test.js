@@ -1,21 +1,20 @@
-import { setSearchTerm, fetchBooks, fetchABook } from './actions'
+import { setSearchTerm, fetchBooks } from './actions'
+import * as types from '../types'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import axios from 'axios'
-import * as types from '../types'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe('BookListContainer related actions', () => {
   it('Sets the search keyword', () => {
-    // test asserts that when a search term is provided to
-    //   the setSearchTerm action creator, the action will be created
     const term = ''
     const expected = {
-      type: 'SET_SEARCH_TERM',
+      type: types.SET_SEARCH_TERM,
       term,
     }
+
     const action = setSearchTerm(term)
     expect(action).toEqual(expected)
   })
@@ -25,6 +24,7 @@ describe('BookListContainer related actions', () => {
       { id: 1, name: 'Refactoring' },
       { id: 2, name: 'Domain-driven design' },
     ]
+
     axios.get = jest
       .fn()
       .mockImplementation(() => Promise.resolve({ data: books }))
@@ -35,7 +35,6 @@ describe('BookListContainer related actions', () => {
     ]
 
     const store = mockStore({ books: [] })
-
     return store.dispatch(fetchBooks('')).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
@@ -52,6 +51,7 @@ describe('BookListContainer related actions', () => {
       { type: types.FETCH_BOOKS_PENDING },
       { type: types.FETCH_BOOKS_FAILED, err: 'Something went wrong' },
     ]
+
     const store = mockStore({ books: [] })
 
     return store.dispatch(fetchBooks('')).then(() => {
@@ -64,31 +64,17 @@ describe('BookListContainer related actions', () => {
       { id: 1, name: 'Refactoring' },
       { id: 2, name: 'Domain-driven design' },
     ]
+
     axios.get = jest
       .fn()
       .mockImplementation(() => Promise.resolve({ data: books }))
 
-    const store = mockStore({ books: [], term: 'domain' })
+    const store = mockStore({ books: [] })
 
-    return store.dispatch(fetchBooks()).then(() => {
+    return store.dispatch(fetchBooks('domain')).then(() => {
       expect(axios.get).toHaveBeenCalledWith(
         'http://localhost:8080/books?q=domain',
       )
-    })
-  })
-
-  it('Fetch book by id', () => {
-    const book = { id: 1, name: 'Refactoring' }
-    axios.get = jest.fn().mockImplementation(() =>
-      Promise.resolve({
-        data: book,
-      }),
-    )
-
-    const store = mockStore({ list: { books: [], term: '' } })
-
-    return store.dispatch(fetchABook(1)).then(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books/1')
     })
   })
 })
