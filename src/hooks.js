@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-export const useRemoteService = (url, initialData) => {
+export const useRemoteService = (initialUrl, initialData) => {
   const [data, setData] = useState(initialData)
-
+  const [url, setUrl] = useState(initialUrl)
   const [loading, setLoading] = useState(false)
 
   const [error, setError] = useState(false)
@@ -23,7 +23,7 @@ export const useRemoteService = (url, initialData) => {
     }
 
     fetchBooks()
-  }, [])
+  }, [url])
 
-  return { data, loading, error }
+  return { data, loading, error, setUrl }
 }

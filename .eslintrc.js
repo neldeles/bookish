@@ -16,7 +16,6 @@ module.exports = {
   },
   plugins: ['react', 'jest', 'cypress'],
   rules: {
-    indent: ['error', 2],
     'react/prop-types': 0,
   },
   settings: {
