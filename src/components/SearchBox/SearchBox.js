@@ -1,6 +1,6 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField/TextField'
-
+// eslint-disable-next-line no-unused-vars
 import { clone, isEmpty } from 'lodash'
 
 const SearchBox = ({ term, onSearch }) => {
