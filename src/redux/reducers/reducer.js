@@ -12,6 +12,8 @@ const reducer = (state = { books: [] }, action) => {
       return { ...state, loading: false, error: true }
     case types.FETCH_BOOK_SUCCESS:
       return { ...state, book: action.book }
+    case types.FETCH_BOOK_PENDING:
+      return { ...state, loading: true }
     default:
       return state
   }
