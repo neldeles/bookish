@@ -34,16 +34,18 @@ describe('BookDetailContainer', () => {
     const mock = new MockAdapter(axios)
     mock.onGet('http://localhost:8080/books/2').reply(200, {
       name: 'Acceptance tests driven development with React',
+      description:
+        'This book describes how to apply the Acceptance Test Driven Development when developing a Web Application named bookish with React / Redux and other tools in react ecosystem.',
       id: 2,
     })
 
-    const { findAllByText } = renderWithProvider(
+    const { findByText } = renderWithProvider(
       <BookDetailContainer {...props} />,
     )
 
-    const book = await findAllByText(
+    const book = await findByText(
       'Acceptance tests driven development with React',
     )
-    expect(book).toBeInTheDocument
+    expect(book).toBeInTheDocument()
   })
 })
